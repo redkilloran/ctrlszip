@@ -46,16 +46,27 @@ orange). Profile pictures are scaled to 100×100 and dithered the same way.
 - Folder contents (files) can be sorted by date or alphabetically.
 - Sidebar shows the folder hierarchy tree, similar to a Windows file
   browser. URLs mirror the hierarchy.
-- Files and folders can be moved via drag-and-drop on desktop. **On mobile,
-  drag-and-drop is replaced with a "Move to…" menu** instead of trying to
-  force touch-drag gestures.
+- Users can create their own sub-folders inside their own folder to
+  organize things, nested arbitrarily deep — not just a flat list of
+  files. Files and folders can be moved via drag-and-drop on desktop.
+  **On mobile, drag-and-drop is replaced with a "Move to…" menu** instead
+  of trying to force touch-drag gestures.
 - Comments can be left on individual files (not folders directly).
-- Every folder has one attached live chat room (only the top-level folder in
-  a hierarchy has a chat room — not each nested sub-folder).
-- **Privacy:** a user can mark their folder private. Private folders are
-  fully unlisted — they do not appear in any sidebar tree, hierarchy view,
-  or home-page listing for other users, and are reachable only via direct
-  link.
+- Every user's own top-level folder has one attached live chat room, same
+  as every event folder — sub-folders a user creates for their own
+  organization do not get their own chat.
+- **Visibility** has three levels, settable per folder:
+  - **Public** (default): shows up in listings and the sidebar tree for
+    everyone.
+  - **Unlisted**: hidden from listings/tree views, but still viewable by
+    anyone who has the direct link — this is obscurity-based, not real
+    access control, the same way an "unlisted" video works elsewhere.
+  - **Private**: real access control. Only the owner and anyone
+    explicitly invited can see it (or anything inside it) at all. A
+    folder owner invites someone by entering that person's permanent
+    signup number — a number assigned once per account when they first
+    sign up, separate from the sequential numbers printed on invite
+    cards (which number the cards/folders themselves, not people).
 - **Editing/deletion:** users can edit and delete their own files, comments,
   and folders at any time while the folder is active.
 
@@ -83,7 +94,7 @@ orange). Profile pictures are scaled to 100×100 and dithered the same way.
 
 - Folders are sorted by activity; the longer a folder's been inactive, the
   further down the list it falls.
-- Private folders never appear here.
+- Unlisted and private folders never appear here.
 - Hovering a folder shows user-submitted details plus stats (file count by
   type).
 
