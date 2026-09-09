@@ -1,0 +1,71 @@
+<title>Folder — CTRLS.zip</title>
+<link rel="stylesheet" href="css/style.css" />
+
+<div class="wrap">
+  <nav id="breadcrumb" class="breadcrumb"></nav>
+
+  <div id="not-found" hidden>
+    <h1>Not found</h1>
+    <p>Either this folder doesn't exist, or it's private and you don't have access to it.</p>
+  </div>
+
+  <div id="folder-view" hidden>
+    <h1 id="folder-title"></h1>
+    <p id="folder-owner" class="hint"></p>
+    <img id="folder-cover" class="folder-cover" hidden alt="cover photo" />
+
+    <section id="owner-controls" hidden>
+      <p>
+        Visibility:
+        <select id="visibility-select">
+          <option value="public">Public</option>
+          <option value="unlisted">Unlisted</option>
+          <option value="private">Private</option>
+        </select>
+      </p>
+
+      <div id="private-controls" hidden>
+        <p class="hint">Invite someone by their signup number:</p>
+        <form id="grant-form">
+          <input type="number" id="grant-number" placeholder="e.g. 42" min="1" required />
+          <button type="submit">Grant access</button>
+        </form>
+        <ul id="grants-list" class="card-list"></ul>
+      </div>
+    </section>
+
+    <h2>Subfolders</h2>
+    <ul id="subfolder-list" class="card-list"></ul>
+    <form id="new-subfolder-form" hidden>
+      <input type="text" id="new-subfolder-name" placeholder="new subfolder name" autocomplete="off" required />
+      <button type="submit">Create subfolder</button>
+    </form>
+
+    <h2>
+      Files
+      <select id="sort-mode">
+        <option value="date">Newest first</option>
+        <option value="alpha">A–Z</option>
+      </select>
+    </h2>
+    <ul id="file-list" class="card-list"></ul>
+
+    <form id="new-file-form" hidden>
+      <p><input type="text" id="new-file-title" placeholder="title (optional)" autocomplete="off" /></p>
+      <p><textarea id="new-file-body" rows="4" placeholder="write something… (markdown supported)"></textarea></p>
+      <button type="submit">Post text file</button>
+      <p class="hint">Image and audio posts are coming in a later step.</p>
+    </form>
+
+    <div id="chat-section" hidden>
+      <h2>Chat</h2>
+      <div id="chat-log" class="chat-log"></div>
+      <form id="chat-form">
+        <input type="text" id="chat-input" placeholder="say something…" autocomplete="off" required />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/folder.js"></script>

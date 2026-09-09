@@ -132,5 +132,6 @@ customizeForm.addEventListener("submit", async (e) => {
     return;
   }
 
-  customizeStatus.textContent = "Saved! Your folder is ready. (Folder browsing UI comes next.)";
+  customizeStatus.textContent = "Saved! Taking you there…";
+  window.location.href = `folder.html?id=${claimedFolder.id}`;
 });

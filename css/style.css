@@ -37,18 +37,37 @@ a {
   height: auto;
 }
 
+.folder-cover {
+  max-width: 100%;
+  display: block;
+  margin: 0.5rem 0;
+}
+
+img {
+  max-width: 100%;
+}
+
 .hint {
   color: var(--white-dim);
   font-size: 0.9rem;
 }
 
-input, button {
+input, button, textarea, select {
   font-family: inherit;
   font-size: 1rem;
   padding: 0.6rem 0.8rem;
   border: 2px solid var(--white);
   background: transparent;
   color: var(--white);
+}
+
+textarea {
+  width: 100%;
+  resize: vertical;
+}
+
+select option {
+  color: var(--orange);
 }
 
 button {
@@ -59,6 +78,94 @@ button {
 button:hover {
   background: var(--white);
   color: var(--orange);
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.breadcrumb .sep {
+  color: var(--white-dim);
+}
+
+.badge {
+  display: inline-block;
+  border: 1px solid var(--white);
+  padding: 0.1rem 0.5rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  border-radius: 999px;
+  margin-left: 0.4rem;
+}
+
+.card-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.card {
+  border: 2px solid var(--white);
+  padding: 0.9rem 1rem;
+}
+
+.card-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.card img, .card audio {
+  max-width: 100%;
+  margin-top: 0.5rem;
+}
+
+.card-body {
+  margin: 0.5rem 0 0;
+  white-space: pre-wrap;
+}
+
+.card-body :first-child {
+  margin-top: 0;
+}
+
+.comment-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.6rem 0 0;
+  border-top: 1px solid var(--white-dim);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.comment-list li {
+  padding-top: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.icon-btn {
+  padding: 0.2rem 0.5rem;
+  font-size: 0.75rem;
+}
+
+.chat-log {
+  border: 2px solid var(--white);
+  height: 12rem;
+  overflow-y: auto;
+  padding: 0.6rem;
+  margin: 0.6rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.9rem;
 }
 
 @media (max-width: 480px) {
