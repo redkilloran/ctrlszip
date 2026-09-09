@@ -1,0 +1,9 @@
+-- Placeholder — will hold the Postgres table definitions and Row Level
+-- Security (RLS) policies for CTRLS.zip once the data model is designed
+-- (folders, files, comments, chat messages, folder_keys).
+--
+-- Until real policies are added, Supabase tables default to RLS disabled,
+-- which means anyone with the anon key could read/write them — so no
+-- table should be created in the dashboard without RLS turned on and a
+-- deny-by-default policy in place, mirroring how firestore.rules used to
+-- work.

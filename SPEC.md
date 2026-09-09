@@ -106,21 +106,22 @@ orange). Profile pictures are scaled to 100×100 and dithered the same way.
 - **Frontend:** static site (plain HTML/CSS/JS, no build step) hosted on
   **GitHub Pages**, using the `ctrls.zip` domain (already purchased via
   Squarespace Domains) pointed at it via DNS.
-- **Backend:** **Firebase** free (Spark) tier —
-  - Firestore for folders/files/comments/metadata
-  - Firebase Realtime Database or Firestore for live chat
-  - Firebase Storage for dithered images/audio
-  - Firebase Authentication for login
-- **Auth without email:** Firebase Auth's email/password provider is used,
+- **Backend:** **Supabase** free tier —
+  - Postgres database (tables) for folders/files/comments/metadata
+  - Supabase Realtime for live chat
+  - Supabase Storage for dithered images/audio
+  - Supabase Auth for login
+  - Chosen over Firebase specifically because Firebase now requires the
+    paid Blaze plan (a card on file) just to enable Cloud Storage, even at
+    $0 usage — Supabase's free tier needs no card for any of the above.
+- **Auth without email:** Supabase Auth's email/password provider is used,
   but with a synthesized internal address per handle (e.g.
   `handle@ctrls.zip.internal`) instead of a real email. This avoids ever
-  collecting a real email while still getting Firebase's server-verified
-  login and `request.auth`-based security rules.
-- **No Cloud Functions / no Blaze plan.** Cloud Functions require Firebase's
-  pay-as-you-go Blaze plan, which needs a card on file — explicitly avoided
-  per the "no subscription/billing lock-in" requirement. Everything must be
-  achievable with Firestore/Storage security rules plus client-side logic
-  on the free Spark plan.
+  collecting a real email while still getting Supabase's server-verified
+  login and Row Level Security (RLS) policies keyed off the logged-in user.
+- **No Edge Functions needed.** Everything should be achievable with
+  Postgres RLS policies plus client-side logic, keeping this on Supabase's
+  free tier with no billing account required.
 - **Dithering:** done client-side via `<canvas>` before upload (same idea
   as [ditherit-v2](https://github.com/alexharris/ditherit-v2)), both to save
   storage and for the intended visual style.

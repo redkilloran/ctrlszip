@@ -8,46 +8,44 @@ work.
 ## Stack
 
 - Static frontend (plain HTML/CSS/JS, no build step) → **GitHub Pages**
-- **Firebase** (Spark/free tier) → Firestore, Storage, Realtime chat, Auth
+- **Supabase** (free tier) → Postgres database, Storage, Realtime chat, Auth
 
-No paid tiers, no Cloud Functions, no credit card on file anywhere.
+No paid tiers, no billing account, no credit card on file anywhere.
 
 ## Status
 
-Scaffolding only right now — page shells and TODOs, no real Firebase
-wiring yet. Nothing here talks to a real Firebase project until you've
+Scaffolding only right now — page shells and TODOs, no real Supabase
+wiring yet. Nothing here talks to a real Supabase project until you've
 done the one-time setup below.
 
 ## One-time setup (things only you can do — need your own accounts)
 
-1. **Create a Firebase project.**
-   - Go to https://console.firebase.google.com, create a new project
-     (Spark/free plan is fine, no card required).
-   - Enable **Authentication** → Email/Password provider (we use this
-     with synthesized fake addresses instead of real emails — see
-     SPEC.md's "Auth without email" section).
-   - Enable **Firestore Database** and **Storage**.
-   - In Project Settings → General → Your apps, add a Web app and copy
-     the config object it gives you.
-2. **Fill in your local Firebase config.**
+1. **Create a Supabase project.**
+   - Go to https://supabase.com and sign up (you can use a GitHub login,
+     which is convenient since you'll need a GitHub account for step 3
+     anyway).
+   - Click **New Project**. Give it a name (e.g. `ctrls-zip`), generate a
+     database password (Supabase will offer to do this for you — just
+     save it somewhere, you likely won't need it day-to-day), and pick a
+     region close to you. No card is required for the Free plan.
+   - Once it finishes provisioning, go to **Project Settings → API**.
+     You'll need the **Project URL** and the **anon public key** shown
+     there for the next step.
+2. **Fill in your local Supabase config.**
    ```bash
-   cp js/firebase-config.example.js js/firebase-config.js
+   cp js/supabase-config.example.js js/supabase-config.js
    ```
-   Paste your project's values into `js/firebase-config.js`. This file is
-   gitignored so it won't get committed.
-3. **Install the Firebase CLI** (only needed to deploy security rules,
-   not for hosting):
-   ```bash
-   npm install -g firebase-tools
-   firebase login
-   firebase use --add   # pick your project, alias it "default"
-   ```
-4. **Create a GitHub repo and push this project**, then in the repo's
+   Open `js/supabase-config.js` and paste in the Project URL and anon key
+   from step 1. This file is gitignored so it won't get committed.
+3. **Create a GitHub repo and push this project**, then in the repo's
    Settings → Pages, set the source to the `main` branch, root folder.
-5. **Point the domain.** In Squarespace Domains' DNS settings for
+4. **Point the domain.** In Squarespace Domains' DNS settings for
    `ctrls.zip`, add the records GitHub's Pages docs specify for a custom
    apex domain, and add a `CNAME` file at the repo root with `ctrls.zip`
    in it once you're ready to go live.
+
+(A more detailed, click-by-click version of all four steps is in the
+chat — ask if you want it written down here too.)
 
 ## Local preview
 
@@ -57,10 +55,10 @@ No build step — just serve the folder statically and open it, e.g.:
 npx serve .
 ```
 
-## Deploying security rules
+## Database schema & security
 
-Once `firebase-config.js` and `firebase use` are set up:
-
-```bash
-firebase deploy --only firestore:rules,storage
-```
+`sql/schema.sql` will hold the real table definitions and Row Level
+Security (RLS) policies once the data model is designed — run it in the
+Supabase dashboard's SQL Editor when that's ready. Until then, don't
+create any tables directly in the dashboard without RLS turned on, since
+the anon key is public and RLS is what keeps data actually private.

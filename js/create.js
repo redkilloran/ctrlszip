@@ -1,9 +1,9 @@
 // Account creation. Reachable only from the "New User?" button on /open.
 // TODO: on submit —
 //   1. dither the uploaded pfp client-side (canvas, 100x100)
-//   2. create a Firebase Auth user with a synthesized internal email
+//   2. create a Supabase Auth user with a synthesized internal email
 //      (handle@ctrls.zip.internal) + the chosen password
-//   3. write the profile doc (handle, pfp URL) to Firestore
+//   3. write the profile row (handle, pfp URL) to the "profiles" table
 
 const form = document.getElementById("create-form");
 
