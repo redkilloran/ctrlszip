@@ -51,10 +51,20 @@
     <ul id="file-list" class="card-list"></ul>
 
     <form id="new-file-form" hidden>
+      <p>
+        <select id="new-file-kind">
+          <option value="text">Text</option>
+          <option value="image">Image</option>
+          <option value="audio">Audio</option>
+        </select>
+      </p>
       <p><input type="text" id="new-file-title" placeholder="title (optional)" autocomplete="off" /></p>
-      <p><textarea id="new-file-body" rows="4" placeholder="write something… (markdown supported)"></textarea></p>
-      <button type="submit">Post text file</button>
-      <p class="hint">Image and audio posts are coming in a later step.</p>
+      <p id="new-file-text-fields">
+        <textarea id="new-file-body" rows="4" placeholder="write something… (markdown supported)"></textarea>
+      </p>
+      <p id="new-file-media-fields" hidden><input type="file" id="new-file-media" /></p>
+      <button type="submit">Post file</button>
+      <p class="hint" id="new-file-hint"></p>
     </form>
 
     <div id="chat-section" hidden>

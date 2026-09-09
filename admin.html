@@ -1,0 +1,23 @@
+<title>Dev Portal — CTRLS.zip</title>
+<link rel="stylesheet" href="css/style.css" />
+
+<div class="wrap">
+  <h1>Dev Portal</h1>
+
+  <div id="not-authorized" hidden>
+    <p>You're not an admin (or not logged in).</p>
+  </div>
+
+  <div id="portal" hidden>
+    <h2>New event folder</h2>
+    <form id="new-event-form">
+      <input type="text" id="new-event-name" placeholder="codename, e.g. momocon2026" autocomplete="off" required />
+      <button type="submit">Create</button>
+    </form>
+
+    <h2>Event folders</h2>
+    <ul id="event-list" class="card-list"></ul>
+  </div>
+</div>
+
+<script type="module" src="js/admin.js"></script>

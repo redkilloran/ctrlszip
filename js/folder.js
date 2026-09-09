@@ -2,6 +2,7 @@
 // image/audio come later), comments, and live chat for event/user
 // folders. Reached as folder.html?id=<folder id>.
 import { supabase } from "./supabaseClient.js";
+import { ditherImage } from "./dither.js";
 import { marked } from "https://cdn.jsdelivr.net/npm/marked@12/+esm";
 import DOMPurify from "https://cdn.jsdelivr.net/npm/dompurify@3/+esm";
 
@@ -26,6 +27,28 @@ const newSubfolderForm = document.getElementById("new-subfolder-form");
 const sortModeSelect = document.getElementById("sort-mode");
 const fileListEl = document.getElementById("file-list");
 const newFileForm = document.getElementById("new-file-form");
+const newFileKindSelect = document.getElementById("new-file-kind");
+const newFileTextFieldsEl = document.getElementById("new-file-text-fields");
+const newFileMediaFieldsEl = document.getElementById("new-file-media-fields");
+const newFileMediaInput = document.getElementById("new-file-media");
+const newFileHintEl = document.getElementById("new-file-hint");
+
+const NEW_FILE_HINTS = {
+  text: "Markdown is supported.",
+  image: "Dithered to 440px wide, orange & white, before uploading.",
+  audio: "Uploaded as-is for now — no compression yet.",
+};
+
+function updateNewFileFields() {
+  const kind = newFileKindSelect.value;
+  newFileTextFieldsEl.hidden = kind !== "text";
+  newFileMediaFieldsEl.hidden = kind === "text";
+  newFileMediaInput.accept = kind === "image" ? "image/*" : kind === "audio" ? "audio/*" : "";
+  newFileHintEl.textContent = NEW_FILE_HINTS[kind];
+}
+
+newFileKindSelect.addEventListener("change", updateNewFileFields);
+updateNewFileFields();
 
 const chatSectionEl = document.getElementById("chat-section");
 const chatLogEl = document.getElementById("chat-log");
@@ -377,28 +400,62 @@ async function loadComments(fileId, listEl) {
 
 newFileForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const titleInput = document.getElementById("new-file-title");
-  const bodyInput = document.getElementById("new-file-body");
-  const title = titleInput.value.trim() || null;
-  const body = bodyInput.value.trim();
 
-  if (!body) {
-    alert("Text files need some text.");
-    return;
-  }
+  const kind = newFileKindSelect.value;
+  const titleInput = document.getElementById("new-file-title");
+  const title = titleInput.value.trim() || null;
 
   const { data: { session } } = await supabase.auth.getSession();
-  const { error } = await supabase
-    .from("files")
-    .insert({ folder_id: folderId, owner_id: session.user.id, kind: "text", title, body });
+  const insertRow = { folder_id: folderId, owner_id: session.user.id, kind, title };
+
+  if (kind === "text") {
+    const bodyInput = document.getElementById("new-file-body");
+    const body = bodyInput.value.trim();
+    if (!body) {
+      alert("Text files need some text.");
+      return;
+    }
+    insertRow.body = body;
+  } else {
+    const file = newFileMediaInput.files[0];
+    if (!file) {
+      alert(`Choose ${kind === "audio" ? "an audio" : "an image"} file first.`);
+      return;
+    }
+
+    let blobToUpload = file;
+    let contentType = file.type;
+    let ext = (file.name.split(".").pop() || "bin").toLowerCase();
+
+    if (kind === "image") {
+      blobToUpload = await ditherImage(file, 440);
+      contentType = "image/png";
+      ext = "png";
+    }
+
+    const path = `${session.user.id}/${crypto.randomUUID()}.${ext}`;
+    const { error: uploadError } = await supabase.storage
+      .from("media")
+      .upload(path, blobToUpload, { contentType, upsert: false });
+
+    if (uploadError) {
+      alert(`Couldn't upload: ${uploadError.message}`);
+      return;
+    }
+
+    const { data: publicUrlData } = supabase.storage.from("media").getPublicUrl(path);
+    insertRow.media_url = publicUrlData.publicUrl;
+  }
+
+  const { error } = await supabase.from("files").insert(insertRow);
 
   if (error) {
     alert(`Couldn't post: ${error.message}`);
     return;
   }
 
-  titleInput.value = "";
-  bodyInput.value = "";
+  newFileForm.reset();
+  updateNewFileFields();
   await loadFiles();
 });
 
