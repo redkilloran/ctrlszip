@@ -3,20 +3,40 @@
 
 <div class="wrap">
   <h1>Open</h1>
-  <p>Enter the code from your folder card.</p>
 
-  <form id="redeem-form">
-    <input type="text" id="folder-key" placeholder="FOLDER KEY" autocomplete="off" required />
-    <button type="submit">Redeem</button>
-  </form>
+  <section id="key-step">
+    <p>Enter the code from your folder card.</p>
+    <form id="key-form">
+      <input type="text" id="folder-key" placeholder="FOLDER KEY" autocomplete="off" required />
+      <button type="submit">Continue</button>
+    </form>
+  </section>
 
-  <p id="username-step" hidden>
-    <label>Who is this folder for?
-      <input type="text" id="username" placeholder="your handle" autocomplete="off" />
-    </label>
-    <button id="claim-btn" type="button">Claim folder</button>
-    <button id="new-user-btn" type="button">New User?</button>
-  </p>
+  <section id="auth-step" hidden>
+    <p>Who is this folder for?</p>
+    <form id="login-form">
+      <input type="text" id="login-handle" placeholder="your handle" autocomplete="off" required />
+      <input type="password" id="login-password" placeholder="password" required />
+      <button type="submit">Log in &amp; claim folder</button>
+    </form>
+    <p><button id="new-user-btn" type="button">New User?</button></p>
+    <p class="hint">
+      Made your account in the other tab already?
+      <button id="recheck-btn" type="button">Continue</button>
+    </p>
+  </section>
+
+  <section id="customize-step" hidden>
+    <p>Your folder is yours. Give it a name and (optionally) a cover photo.</p>
+    <form id="customize-form">
+      <p><input type="text" id="codename" placeholder="codename" autocomplete="off" /></p>
+      <p><input type="file" id="cover-photo" accept="image/*" /></p>
+      <button type="submit">Save</button>
+    </form>
+    <p id="customize-status" class="hint"></p>
+  </section>
+
+  <p id="open-status" class="hint"></p>
 </div>
 
 <script type="module" src="js/open.js"></script>

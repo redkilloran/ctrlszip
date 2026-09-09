@@ -6,11 +6,13 @@
   <p>No email needed. Just a handle, a password, and a picture if you want one.</p>
 
   <form id="create-form">
-    <p><input type="text" id="handle" placeholder="handle" autocomplete="off" required /></p>
-    <p><input type="password" id="password" placeholder="password" required /></p>
+    <p><input type="text" id="handle" placeholder="handle (lowercase, 3-20 chars)" autocomplete="off" required /></p>
+    <p><input type="password" id="password" placeholder="password" required minlength="6" /></p>
     <p><input type="file" id="pfp" accept="image/*" /></p>
     <button type="submit">Create account</button>
   </form>
+
+  <p id="create-status" class="hint"></p>
 
   <p class="hint">
     Your picture will be shrunk to 100&times;100 and dithered orange, same as

@@ -57,8 +57,19 @@ npx serve .
 
 ## Database schema & security
 
-`sql/schema.sql` will hold the real table definitions and Row Level
-Security (RLS) policies once the data model is designed — run it in the
-Supabase dashboard's SQL Editor when that's ready. Until then, don't
-create any tables directly in the dashboard without RLS turned on, since
-the anon key is public and RLS is what keeps data actually private.
+`sql/` holds numbered, one-time migration files — run each one, in order,
+in the Supabase dashboard's SQL Editor (Project > SQL Editor > New query,
+paste, Run) the first time it's added. Don't re-run a file that already
+succeeded; it'll error on already-existing tables/policies rather than
+silently no-op. Don't create tables directly in the dashboard outside of
+these files without RLS turned on, either — the anon/publishable key is
+public, and RLS is what keeps data actually private.
+
+## Required Supabase Auth setting
+
+Handles have no email, so accounts sign up with a synthesized internal
+address (`handle@ctrls.zip.internal`) instead of a real one — see
+SPEC.md. For that to work, turn **off** "Confirm email" in the dashboard:
+**Authentication → Providers → Email → Confirm email → off**. Otherwise
+Supabase will wait for a confirmation click on an email address that can
+never receive one, and nobody will ever be able to log in.
