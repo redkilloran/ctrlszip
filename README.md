@@ -31,12 +31,12 @@ done the one-time setup below.
    - Once it finishes provisioning, go to **Project Settings → API**.
      You'll need the **Project URL** and the **anon public key** shown
      there for the next step.
-2. **Fill in your local Supabase config.**
-   ```bash
-   cp js/supabase-config.example.js js/supabase-config.js
-   ```
-   Open `js/supabase-config.js` and paste in the Project URL and anon key
-   from step 1. This file is gitignored so it won't get committed.
+2. **Fill in `js/supabase-config.js`** with the Project URL and
+   anon/publishable key from step 1 (`js/supabase-config.example.js`
+   shows the shape). Unlike most "config" files, this one IS committed to
+   git and needs to be — GitHub Pages only serves committed files, and
+   this key is designed to be public in client-side code anyway (real
+   protection comes from the RLS policies in `sql/`, not from hiding it).
 3. **Create a GitHub repo and push this project**, then in the repo's
    Settings → Pages, set the source to the `main` branch, root folder.
 4. **Point the domain.** In Squarespace Domains' DNS settings for
