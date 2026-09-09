@@ -1,0 +1,12 @@
+# Local Firebase config (contains your project's real keys)
+js/firebase-config.js
+
+# Firebase CLI local state
+.firebase/
+.firebaserc
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.log
+node_modules/

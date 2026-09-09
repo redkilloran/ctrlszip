@@ -1,0 +1,12 @@
+rules_version = '2';
+
+// Placeholder rules — deny everything until upload paths (per-user pfp,
+// per-file images/audio) are defined.
+// Deploy with: firebase deploy --only storage
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

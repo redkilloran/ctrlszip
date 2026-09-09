@@ -1,0 +1,22 @@
+<title>Open a folder — CTRLS.zip</title>
+<link rel="stylesheet" href="css/style.css" />
+
+<div class="wrap">
+  <h1>Open</h1>
+  <p>Enter the code from your folder card.</p>
+
+  <form id="redeem-form">
+    <input type="text" id="folder-key" placeholder="FOLDER KEY" autocomplete="off" required />
+    <button type="submit">Redeem</button>
+  </form>
+
+  <p id="username-step" hidden>
+    <label>Who is this folder for?
+      <input type="text" id="username" placeholder="your handle" autocomplete="off" />
+    </label>
+    <button id="claim-btn" type="button">Claim folder</button>
+    <button id="new-user-btn" type="button">New User?</button>
+  </p>
+</div>
+
+<script type="module" src="js/open.js"></script>

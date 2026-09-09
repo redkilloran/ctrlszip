@@ -1,0 +1,68 @@
+:root {
+  --orange: #f4712a;
+  --white: #fdf6ef;
+  --white-dim: #e8ddd0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--orange);
+  color: var(--white);
+  font-family: "Courier New", ui-monospace, monospace;
+  min-height: 100vh;
+}
+
+.wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 3rem 1.25rem;
+}
+
+h1, h2 {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+a {
+  color: var(--white);
+  text-decoration: underline;
+}
+
+.folder-icon {
+  width: 2.5rem;
+  height: auto;
+}
+
+.hint {
+  color: var(--white-dim);
+  font-size: 0.9rem;
+}
+
+input, button {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 0.6rem 0.8rem;
+  border: 2px solid var(--white);
+  background: transparent;
+  color: var(--white);
+}
+
+button {
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+button:hover {
+  background: var(--white);
+  color: var(--orange);
+}
+
+@media (max-width: 480px) {
+  .wrap {
+    padding: 2rem 1rem;
+  }
+}
